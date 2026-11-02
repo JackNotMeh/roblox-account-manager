@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import InteractiveMockup from '../components/InteractiveMockup.astro';
+import Spotlight from '../components/Spotlight.astro';
 
 const downloadLink = "/downloads/RobloxAccountManager-Setup.exe";
 const discordLink = "https://discord.gg/placeholder-ram";
@@ -168,6 +169,9 @@ const faqs = [
   <!-- HERO SECTION (Styled exactly to SellAuth landing page reference) -->
   <section class="relative pt-6 pb-20 sm:pt-10 sm:pb-28 overflow-hidden text-center">
     
+    <!-- Top Central Atmospheric Spotlight Beam -->
+    <Spotlight />
+
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       
       <!-- SellAuth-style Announcement Pill Badge -->
@@ -178,10 +182,52 @@ const faqs = [
         <span>Introducing Roblox Account Manager v3.2</span>
       </div>
 
-      <!-- Bold Primary Tagline from SellAuth screenshot -->
-      <h1 class="text-4xl sm:text-6xl lg:text-[76px] font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.05] mb-6 reveal-on-scroll">
+      <!-- Bold Primary Tagline with Dynamic Word Switcher & Natural Marker Underline -->
+      <h1 class="text-4xl sm:text-6xl lg:text-[76px] font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.12] mb-6 reveal-on-scroll">
         The account manager <br class="hidden sm:inline" />
-        <span class="gradient-text">built for scale.</span>
+        <span id="dynamic-headline-wrap" class="relative inline-block pb-3 sm:pb-4 text-center">
+          <span 
+            id="dynamic-word" 
+            class="gradient-text transition-all duration-300 inline-block font-extrabold"
+          >
+            Built for scale
+          </span>
+
+          <!-- Natural Hand-Drawn Marker Underline SVG -->
+          <svg 
+            id="marker-underline-svg" 
+            class="absolute left-0 -bottom-0.5 sm:-bottom-1 w-full h-[14px] sm:h-[18px] overflow-visible pointer-events-none" 
+            viewBox="0 0 300 22" 
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <!-- Strong Dark Mode Neon Gradient -->
+              <linearGradient id="marker-gradient-dark" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#c084fc" />
+                <stop offset="30%" stop-color="#7a85ff" />
+                <stop offset="70%" stop-color="#38bdf8" />
+                <stop offset="100%" stop-color="#6571ff" />
+              </linearGradient>
+
+              <!-- Rich Light Mode Indigo-Violet Gradient -->
+              <linearGradient id="marker-gradient-light" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#7c3aed" />
+                <stop offset="45%" stop-color="#4f46e5" />
+                <stop offset="100%" stop-color="#2563eb" />
+              </linearGradient>
+            </defs>
+
+            <!-- Organic marker stroke with hand-drawn curvature -->
+            <path 
+              id="marker-path" 
+              d="M 4,14 Q 75,6 150,13 T 296,11" 
+              fill="none" 
+              stroke-width="6" 
+              vector-effect="non-scaling-stroke"
+              class="marker-stroke marker-stroke-grad"
+            />
+          </svg>
+        </span>
       </h1>
 
       <!-- Subtitle matching SellAuth font size and spacing -->
@@ -650,4 +696,73 @@ const faqs = [
       }
     });
   });
+
+  // Dynamic Randomized Tagline Words with Natural Animated Marker Underline
+  const dynamicWordEl = document.getElementById('dynamic-word');
+  const markerPathEl = document.getElementById('marker-path') as SVGPathElement | null;
+
+  const phraseList = [
+    "Built for scale",
+    "for low-end PC",
+    "for optimization",
+    "that can do anything",
+    "for mass-farming",
+    "better than the others"
+  ];
+
+  let currentPhraseIndex = 0;
+
+  const animateMarkerStroke = () => {
+    if (!markerPathEl) return;
+    // Reset stroke-dashoffset to hidden state instantly
+    markerPathEl.style.transition = 'none';
+    markerPathEl.style.strokeDashoffset = '400';
+    
+    // Force DOM repaint
+    void markerPathEl.getBoundingClientRect();
+
+    // Naturally sweep marker from left to right like someone drawing with a pen
+    markerPathEl.style.transition = 'stroke-dashoffset 0.85s cubic-bezier(0.65, 0, 0.35, 1)';
+    markerPathEl.style.strokeDashoffset = '0';
+  };
+
+  const changeToNextPhrase = () => {
+    if (!dynamicWordEl) return;
+
+    // Pick next randomized phrase (ensuring no direct repeat)
+    let nextIndex: number;
+    do {
+      nextIndex = Math.floor(Math.random() * phraseList.length);
+    } while (nextIndex === currentPhraseIndex && phraseList.length > 1);
+
+    currentPhraseIndex = nextIndex;
+
+    // Fade and slide out current phrase
+    dynamicWordEl.style.opacity = '0';
+    dynamicWordEl.style.transform = 'translateY(-10px)';
+
+    setTimeout(() => {
+      dynamicWordEl.textContent = phraseList[currentPhraseIndex];
+      dynamicWordEl.style.transform = 'translateY(12px)';
+
+      // Slide and fade in new phrase
+      requestAnimationFrame(() => {
+        dynamicWordEl.style.opacity = '1';
+        dynamicWordEl.style.transform = 'translateY(0)';
+
+        // Draw marker underline under all letters
+        setTimeout(() => {
+          animateMarkerStroke();
+        }, 120);
+      });
+    }, 280);
+  };
+
+  // Initial draw on page load
+  setTimeout(() => {
+    animateMarkerStroke();
+  }, 400);
+
+  // Rotate every 3.8s
+  setInterval(changeToNextPhrase, 3800);
 </script>

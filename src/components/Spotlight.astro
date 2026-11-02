@@ -1,0 +1,52 @@
+---
+// Atmospheric Top Spotlight Light Beam (SellAuth Style)
+// Creates radiant volumetric rays and soft atmospheric glows shining from top center
+---
+
+<div class="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1300px] h-[640px] sm:h-[720px] overflow-hidden -z-10 select-none">
+  
+  <!-- Central Diffuse Ceiling Flare -->
+  <div class="absolute -top-[160px] left-1/2 -translate-x-1/2 w-[700px] sm:w-[960px] h-[360px] rounded-[100%] bg-gradient-to-b from-[#8b97ff]/40 via-[#6571ff]/20 to-transparent blur-[75px] dark:from-[#7a85ff]/50 dark:via-[#6571ff]/30"></div>
+  
+  <!-- Subtle Secondary Color Flare (Purple / Indigo) -->
+  <div class="absolute -top-[100px] left-1/2 -translate-x-1/2 w-[420px] sm:w-[550px] h-[240px] rounded-[100%] bg-gradient-to-b from-purple-400/35 via-indigo-500/20 to-transparent blur-[55px] dark:from-purple-500/45 dark:via-indigo-600/25"></div>
+
+  <!-- Volumetric Angular Light Rays (SellAuth Signature) -->
+  <svg class="absolute top-0 left-1/2 -translate-x-1/2 w-[1160px] h-[660px] opacity-75 dark:opacity-90 mix-blend-screen" viewBox="0 0 1160 660" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Center Main Beam Gradient -->
+      <linearGradient id="main-beam-grad" x1="50%" y1="0%" x2="50%" y2="100%">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65" />
+        <stop offset="18%" stop-color="#a5b4fc" stop-opacity="0.45" />
+        <stop offset="55%" stop-color="#6571ff" stop-opacity="0.14" />
+        <stop offset="100%" stop-color="#6571ff" stop-opacity="0" />
+      </linearGradient>
+
+      <!-- Left Angled Ray Gradient -->
+      <linearGradient id="left-ray-grad" x1="45%" y1="0%" x2="10%" y2="100%">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.45" />
+        <stop offset="25%" stop-color="#818cf8" stop-opacity="0.30" />
+        <stop offset="65%" stop-color="#6571ff" stop-opacity="0.10" />
+        <stop offset="100%" stop-color="#6571ff" stop-opacity="0" />
+      </linearGradient>
+
+      <!-- Right Angled Ray Gradient -->
+      <linearGradient id="right-ray-grad" x1="55%" y1="0%" x2="90%" y2="100%">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.45" />
+        <stop offset="25%" stop-color="#c084fc" stop-opacity="0.30" />
+        <stop offset="65%" stop-color="#a855f7" stop-opacity="0.10" />
+        <stop offset="100%" stop-color="#6571ff" stop-opacity="0" />
+      </linearGradient>
+    </defs>
+
+    <!-- Center Intense Spotlight Cone -->
+    <polygon points="530,0 630,0 800,640 360,640" fill="url(#main-beam-grad)" filter="blur(16px)" />
+    <!-- Left Angled Ambient Ray -->
+    <polygon points="515,0 565,0 150,600 30,600" fill="url(#left-ray-grad)" filter="blur(26px)" />
+    <!-- Right Angled Ambient Ray -->
+    <polygon points="595,0 645,0 1130,600 1010,600" fill="url(#right-ray-grad)" filter="blur(26px)" />
+    <!-- Soft Center Specular Shaft -->
+    <polygon points="560,0 600,0 670,420 490,420" fill="#ffffff" fill-opacity="0.22" filter="blur(10px)" />
+  </svg>
+</div>
+
