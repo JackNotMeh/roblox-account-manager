@@ -1,6 +1,7 @@
 ---
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import Spotlight from '../components/Spotlight.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -53,6 +54,9 @@ const currentPath = Astro.url.pathname;
   </head>
   <body class="min-h-screen flex flex-col bg-white dark:bg-[#07090e] text-slate-900 dark:text-slate-100 selection:bg-purple-500 selection:text-white transition-colors duration-300">
     
+    <!-- Top Central Atmospheric Spotlight Beam (Attached to ceiling y=0) -->
+    <Spotlight />
+
     <!-- Ambient Background Glow & Grid Texture (SellAuth inspired) -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
       <!-- Top Center Radiant Glow -->

@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import InteractiveMockup from '../components/InteractiveMockup.astro';
-import Spotlight from '../components/Spotlight.astro';
 
 const downloadLink = "/downloads/RobloxAccountManager-Setup.exe";
 const discordLink = "https://discord.gg/placeholder-ram";
@@ -168,9 +167,6 @@ const faqs = [
   
   <!-- HERO SECTION (Styled exactly to SellAuth landing page reference) -->
   <section class="relative pt-6 pb-20 sm:pt-10 sm:pb-28 overflow-hidden text-center">
-    
-    <!-- Top Central Atmospheric Spotlight Beam -->
-    <Spotlight />
 
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       
@@ -182,23 +178,22 @@ const faqs = [
         <span>Introducing Roblox Account Manager v3.2</span>
       </div>
 
-      <!-- Bold Primary Tagline with Dynamic Word Switcher & Natural Marker Underline -->
+      <!-- Bold Primary Tagline with Dynamic Word (Random on refresh) & Full Natural Marker Underline -->
       <h1 class="text-4xl sm:text-6xl lg:text-[76px] font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.12] mb-6 reveal-on-scroll">
         The account manager <br class="hidden sm:inline" />
         <span id="dynamic-headline-wrap" class="relative inline-block pb-3 sm:pb-4 text-center">
           <span 
             id="dynamic-word" 
-            class="gradient-text transition-all duration-300 inline-block font-extrabold"
+            class="gradient-text transition-opacity duration-200 inline-block font-extrabold"
           >
             Built for scale
           </span>
 
-          <!-- Natural Hand-Drawn Marker Underline SVG -->
+          <!-- Natural Hand-Drawn Marker Underline SVG (Spans 100% of all letters) -->
           <svg 
             id="marker-underline-svg" 
-            class="absolute left-0 -bottom-0.5 sm:-bottom-1 w-full h-[14px] sm:h-[18px] overflow-visible pointer-events-none" 
-            viewBox="0 0 300 22" 
-            preserveAspectRatio="none"
+            class="absolute left-0 -bottom-1 sm:-bottom-1.5 w-full h-[18px] sm:h-[22px] overflow-visible pointer-events-none" 
+            fill="none"
           >
             <defs>
               <!-- Strong Dark Mode Neon Gradient -->
@@ -220,11 +215,12 @@ const faqs = [
             <!-- Organic marker stroke with hand-drawn curvature -->
             <path 
               id="marker-path" 
-              d="M 4,14 Q 75,6 150,13 T 296,11" 
+              d="" 
               fill="none" 
-              stroke-width="6" 
-              vector-effect="non-scaling-stroke"
-              class="marker-stroke marker-stroke-grad"
+              stroke-width="7" 
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="marker-stroke-grad"
             />
           </svg>
         </span>
@@ -697,10 +693,7 @@ const faqs = [
     });
   });
 
-  // Dynamic Randomized Tagline Words with Natural Animated Marker Underline
-  const dynamicWordEl = document.getElementById('dynamic-word');
-  const markerPathEl = document.getElementById('marker-path') as SVGPathElement | null;
-
+  // Randomized Tagline Word (Only changes when the user refreshes the page)
   const phraseList = [
     "Built for scale",
     "for low-end PC",
@@ -710,59 +703,74 @@ const faqs = [
     "better than the others"
   ];
 
-  let currentPhraseIndex = 0;
+  const dynamicWordEl = document.getElementById('dynamic-word');
+  const markerSvgEl = document.getElementById('marker-underline-svg');
+  const markerPathEl = document.getElementById('marker-path') as SVGPathElement | null;
 
-  const animateMarkerStroke = () => {
-    if (!markerPathEl) return;
-    // Reset stroke-dashoffset to hidden state instantly
+  // Pick one random phrase strictly on page load / refresh
+  const chosenPhrase = phraseList[Math.floor(Math.random() * phraseList.length)];
+  if (dynamicWordEl) {
+    dynamicWordEl.textContent = chosenPhrase;
+  }
+
+  // Draw natural marker underline covering 100% of all letters
+  function setupAndAnimateUnderline() {
+    if (!dynamicWordEl || !markerSvgEl || !markerPathEl) return;
+
+    // Get exact rendered width of the randomized phrase
+    const rect = dynamicWordEl.getBoundingClientRect();
+    const wordWidth = Math.max(Math.ceil(rect.width), 160);
+    const svgHeight = 24;
+
+    markerSvgEl.setAttribute('viewBox', `0 0 ${wordWidth} ${svgHeight}`);
+    markerSvgEl.style.width = `${wordWidth}px`;
+
+    // Organic wavy stroke covering from the very first letter to slightly past the last letter
+    const startX = 3;
+    const endX = wordWidth - 3;
+    const cp1X = startX + (endX - startX) * 0.35;
+    const cp1Y = 7;
+    const midX = startX + (endX - startX) * 0.52;
+    const midY = 13;
+    const cp2X = startX + (endX - startX) * 0.78;
+    const cp2Y = 8;
+    const endY = 11;
+
+    // Hand-drawn bezier curve mimicking realistic human marker sweep
+    const d = `M ${startX.toFixed(1)},14 Q ${cp1X.toFixed(1)},${cp1Y} ${midX.toFixed(1)},${midY} T ${endX.toFixed(1)},${endY}`;
+    markerPathEl.setAttribute('d', d);
+
+    // Compute exact length of the curve so there are ZERO gaps or partial dashes
+    const pathLen = markerPathEl.getTotalLength() || (wordWidth * 1.15);
+    const strokeDash = Math.ceil(pathLen) + 60;
+
+    // Initialize in hidden state (shifted completely off)
     markerPathEl.style.transition = 'none';
-    markerPathEl.style.strokeDashoffset = '400';
-    
+    markerPathEl.style.strokeDasharray = `${strokeDash} ${strokeDash}`;
+    markerPathEl.style.strokeDashoffset = `${strokeDash}`;
+
     // Force DOM repaint
     void markerPathEl.getBoundingClientRect();
 
-    // Naturally sweep marker from left to right like someone drawing with a pen
-    markerPathEl.style.transition = 'stroke-dashoffset 0.85s cubic-bezier(0.65, 0, 0.35, 1)';
-    markerPathEl.style.strokeDashoffset = '0';
-  };
-
-  const changeToNextPhrase = () => {
-    if (!dynamicWordEl) return;
-
-    // Pick next randomized phrase (ensuring no direct repeat)
-    let nextIndex: number;
-    do {
-      nextIndex = Math.floor(Math.random() * phraseList.length);
-    } while (nextIndex === currentPhraseIndex && phraseList.length > 1);
-
-    currentPhraseIndex = nextIndex;
-
-    // Fade and slide out current phrase
-    dynamicWordEl.style.opacity = '0';
-    dynamicWordEl.style.transform = 'translateY(-10px)';
-
+    // Natural marker drawing animation from left to right (like someone drawing with a marker)
     setTimeout(() => {
-      dynamicWordEl.textContent = phraseList[currentPhraseIndex];
-      dynamicWordEl.style.transform = 'translateY(12px)';
-
-      // Slide and fade in new phrase
-      requestAnimationFrame(() => {
-        dynamicWordEl.style.opacity = '1';
-        dynamicWordEl.style.transform = 'translateY(0)';
-
-        // Draw marker underline under all letters
-        setTimeout(() => {
-          animateMarkerStroke();
-        }, 120);
-      });
-    }, 280);
-  };
+      markerPathEl.style.transition = 'stroke-dashoffset 0.85s cubic-bezier(0.65, 0, 0.35, 1)';
+      markerPathEl.style.strokeDashoffset = '0';
+    }, 150);
+  }
 
   // Initial draw on page load
-  setTimeout(() => {
-    animateMarkerStroke();
-  }, 400);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupAndAnimateUnderline);
+  } else {
+    setTimeout(setupAndAnimateUnderline, 50);
+  }
 
-  // Rotate every 3.8s
-  setInterval(changeToNextPhrase, 3800);
+  // Keep line perfectly fitted across all letters if window is resized
+  window.addEventListener('resize', () => {
+    if (markerPathEl) {
+      markerPathEl.style.transition = 'none';
+      setupAndAnimateUnderline();
+    }
+  });
 </script>
