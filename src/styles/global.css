@@ -73,17 +73,21 @@ body {
   transform: translateY(-1px);
 }
 
-/* Gradient text */
+/* Gradient text (with descender padding so letters like g, y, p are never sliced flat) */
 .gradient-text {
   background: linear-gradient(135deg, #a855f7 0%, #6571ff 45%, #3b82f6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  padding-bottom: 0.28em;
+  margin-bottom: -0.28em;
 }
 
 html:not(.dark) .gradient-text {
   background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 50%, #2563eb 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  padding-bottom: 0.28em;
+  margin-bottom: -0.28em;
 }
 
 /* Glassmorphism panel */

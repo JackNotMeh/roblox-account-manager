@@ -181,19 +181,19 @@ const faqs = [
       <!-- Bold Primary Tagline with Dynamic Word (Random on refresh) & Full Natural Marker Underline -->
       <h1 class="text-4xl sm:text-6xl lg:text-[76px] font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.12] mb-6 reveal-on-scroll">
         The account manager <br class="hidden sm:inline" />
-        <span id="dynamic-headline-wrap" class="relative inline-block pb-4 sm:pb-6 text-center">
-          <!-- Text is explicitly z-10 so letters ALWAYS appear ON TOP of the underline stroke -->
+        <span id="dynamic-headline-wrap" class="relative inline-block pb-6 sm:pb-8 text-center">
+          <!-- Text is explicitly z-10 with descender safety so letters like 'g' are fully rounded and on top -->
           <span 
             id="dynamic-word" 
-            class="gradient-text transition-opacity duration-200 inline-block font-extrabold relative z-10"
+            class="gradient-text transition-opacity duration-200 inline-block font-extrabold relative z-10 px-1"
           >
             Built for scale
           </span>
 
-          <!-- Natural Hand-Drawn Marker Underline SVG (z-0 sits behind the text, with comfortable clearance) -->
+          <!-- Natural Hand-Drawn Marker Underline SVG (z-0 sits safely beneath text with generous clearance) -->
           <svg 
             id="marker-underline-svg" 
-            class="absolute left-0 -bottom-2 sm:-bottom-3 w-full h-[24px] sm:h-[28px] overflow-visible pointer-events-none z-0" 
+            class="absolute left-0 bottom-0 sm:-bottom-1 w-full h-[24px] sm:h-[28px] overflow-visible pointer-events-none z-0" 
             fill="none"
           >
             <defs>
