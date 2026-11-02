@@ -1,0 +1,121 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const discordLink = "https://discord.gg/placeholder-ram";
+const downloadLink = "/downloads/RobloxAccountManager-Setup.exe";
+---
+
+<Layout title="Contact & Support" description="Informational support and community resources for Roblox Account Manager. Join our Discord community for real-time discussion and bug reports.">
+  
+  <div class="py-16 sm:py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Header -->
+    <div class="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-600 dark:text-purple-300 border border-purple-500/20 mb-4">
+        Community & Assistance
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white mb-6">
+        Get in touch with our <span class="gradient-text">community</span>
+      </h1>
+      <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+        Roblox Account Manager is supported directly through our community Discord server. This page provides information on where to find help, report issues, and connect with other users.
+      </p>
+    </div>
+
+    <!-- Informational Discord Card (Primary Channel) -->
+    <div class="glass-panel rounded-3xl p-8 sm:p-12 mb-12 border-purple-500/30 shadow-xl shadow-purple-500/5 reveal-on-scroll">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+        
+        <div class="space-y-4 max-w-xl text-center md:text-left">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-[#5865F2]/10 text-[#5865F2] border border-[#5865F2]/20">
+            Official Support Channel
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
+            Join the Roblox Account Manager Discord
+          </h2>
+          <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+            Our Discord server is the single hub for community troubleshooting, update announcements, feature discussions, and peer assistance.
+          </p>
+          <ul class="space-y-2 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
+            <li class="flex items-center gap-2 justify-center md:justify-start">
+              <svg class="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Dedicated #support and #troubleshooting channels</span>
+            </li>
+            <li class="flex items-center gap-2 justify-center md:justify-start">
+              <svg class="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Bug reports and reproducible testing threads</span>
+            </li>
+            <li class="flex items-center gap-2 justify-center md:justify-start">
+              <svg class="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Direct feedback and feature suggestion voting</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="flex flex-col items-center gap-3 shrink-0">
+          <a 
+            href={discordLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-base text-white bg-[#5865F2] hover:bg-[#4752C4] shadow-lg shadow-[#5865F2]/30 hover:scale-105 active:scale-95 transition-all text-center"
+          >
+            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+            </svg>
+            <span>Join Discord Server</span>
+          </a>
+          <span class="text-[11px] text-slate-500 font-mono">Placeholder Invite &bull; Verified Server</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Informational Support Guidelines Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal-on-scroll">
+      
+      <!-- Card 1: How to report bugs -->
+      <div class="glass-panel rounded-2xl p-6 sm:p-8 space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-purple-500/10 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 flex items-center justify-center">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Reporting Issues & Bugs</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          When reporting an issue in Discord, please include your Windows OS version, your current Roblox Account Manager build number, and any error message displayed in the console log.
+        </p>
+      </div>
+
+      <!-- Card 2: Security & Privacy advisory -->
+      <div class="glass-panel rounded-2xl p-6 sm:p-8 space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Security & Privacy Notice</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          Staff and community moderators will NEVER ask you for your account passwords, 2FA backup codes, or .ROBLOSECURITY cookies. Never share your local vault files with anyone.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Direct Download reminder -->
+    <div class="mt-12 text-center text-xs text-slate-500 dark:text-slate-400 reveal-on-scroll">
+      Looking for the app? 
+      <a href={downloadLink} download="RobloxAccountManager-Setup.exe" class="text-purple-600 dark:text-purple-400 underline font-medium hover:text-purple-500">
+        Download RobloxAccountManager-Setup.exe for Windows
+      </a>
+    </div>
+
+  </div>
+
+</Layout>
+

@@ -1,0 +1,102 @@
+---
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { 
+  title, 
+  description = "The ultimate encrypted Roblox Account Manager. Multi-instance launching, Place and VIP server teleport, FPS unlocker, and secure cookie vault for Windows." 
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title} | Roblox Account Manager</title>
+    <meta name="description" content={description} />
+    
+    <!-- Open Graph & Meta -->
+    <meta property="og:title" content={`${title} | Roblox Account Manager`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/images/logo.png" />
+    
+    <!-- Inline anti-FOUC script: Defaults to dark mode on first visit -->
+    <script is:inline>
+      (function() {
+        try {
+          const storedTheme = localStorage.getItem('theme');
+          if (storedTheme === 'light') {
+            document.documentElement.classList.remove('dark');
+          } else {
+            document.documentElement.classList.add('dark');
+            if (!storedTheme) {
+              localStorage.setItem('theme', 'dark');
+            }
+          }
+        } catch (e) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col bg-white dark:bg-[#07090e] text-slate-900 dark:text-slate-100 selection:bg-purple-500 selection:text-white transition-colors duration-300">
+    
+    <!-- Ambient Background Glow & Grid Texture (SellAuth inspired) -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+      <!-- Top Center Radiant Glow -->
+      <div class="absolute -top-[25%] left-1/2 -translate-x-1/2 w-[1100px] h-[650px] bg-gradient-to-b from-purple-600/20 via-indigo-600/10 to-transparent blur-[130px] dark:from-purple-600/30 dark:via-blue-600/18"></div>
+      <!-- Subtle Pattern Overlay -->
+      <div class="absolute inset-0 bg-grid-pattern opacity-60"></div>
+    </div>
+
+    <!-- Floating SellAuth-Style Navigation Pill -->
+    <Navbar currentPath={currentPath} />
+
+    <!-- Main Content with padding for the floating header -->
+    <main class="flex-grow relative z-10 pt-28 sm:pt-32">
+      <slot />
+    </main>
+
+    <!-- Global Footer -->
+    <Footer />
+
+    <!-- Client-side Interactive Animations: Top-Down and Side Animations (Left & Right) -->
+    <script>
+      const initRevealObserver = () => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+            }
+          });
+        }, {
+          threshold: 0.12,
+          rootMargin: '0px 0px -40px 0px'
+        });
+
+        // Observe vertical and side reveal elements
+        document.querySelectorAll('.reveal-on-scroll, .reveal-left, .reveal-right').forEach(el => {
+          observer.observe(el);
+        });
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initRevealObserver);
+      } else {
+        initRevealObserver();
+      }
+    </script>
+  </body>
+</html>

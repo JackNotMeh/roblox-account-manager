@@ -1,0 +1,197 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const downloadLink = "/downloads/RobloxAccountManager-Setup.exe";
+
+const detailedFeatures = [
+  {
+    id: "multi-instance",
+    title: "Multi-Instance Process Isolation",
+    category: "Execution Engine",
+    description: "Launch dozens of concurrent Roblox clients simultaneously on Windows without process crashes or mutex conflict errors.",
+    highlights: [
+      "Custom kernel mutex bypass that permits multiple simultaneous Roblox engine instances",
+      "Per-instance process affinity and thread priority allocation",
+      "Automatic restart watchdog if an instance crashes or disconnects",
+      "Lightweight footprint consuming less than 25MB RAM for the launcher itself"
+    ],
+    icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+  },
+  {
+    id: "encrypted-vault",
+    title: "Encrypted Cookie & Session Vault",
+    category: "Security & Privacy",
+    description: "Keep all your sensitive .ROBLOSECURITY tokens and user credentials secured strictly within your local machine.",
+    highlights: [
+      "AES-256 GCM cryptographic vault stored locally on your SSD",
+      "Zero telemetry or cloud syncing of credentials—your keys never leave your machine",
+      "Master password protection with PBKDF2 key derivation",
+      "One-click encrypted backup and export feature"
+    ],
+    icon: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+  },
+  {
+    id: "quick-joiner",
+    title: "Instant Place & VIP Server Joiner",
+    category: "Teleport Engine",
+    description: "Direct all selected accounts to any game, private server, or specific Job ID with synchronized launch timings.",
+    highlights: [
+      "Support for Place ID, VIP server invite links, and specific server Job IDs",
+      "Join-by-Friend profile targeting to quickly assist friends in-game",
+      "Configurable launch delay slider (1s to 20s) to prevent rate limits",
+      "Queue management with visual feedback and launch progress indicators"
+    ],
+    icon: "M13 10V3L4 14h7v7l9-11h-7z"
+  },
+  {
+    id: "account-checker",
+    title: "Live Account Checker & RAP Monitor",
+    category: "Account Health",
+    description: "Monitor account balances, security status, and token validity without having to log in manually through a browser.",
+    highlights: [
+      "Check Robux balance, Pending Robux, and Limited RAP value in real-time",
+      "Account age calculator and join date tracker",
+      "Instant detection of invalid or expired .ROBLOSECURITY cookies",
+      "Pin status, 2FA authenticator verification, and account tier inspection"
+    ],
+    icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+  },
+  {
+    id: "fps-unlocker",
+    title: "FPS Unlocker & Background Throttler",
+    category: "Performance Tuning",
+    description: "Gain full control over game framerates and hardware utilization while running multiple accounts on Windows.",
+    highlights: [
+      "Uncap default 60 FPS up to 144Hz, 240Hz, or 360Hz displays",
+      "Background window FPS throttling (e.g. 15-30 FPS) to drastically cut GPU heat",
+      "Selective graphics level override to reduce VRAM consumption",
+      "Clean injection compatible with the latest Windows client updates"
+    ],
+    icon: "M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+  },
+  {
+    id: "discord-webhooks",
+    title: "Discord Webhook Event Dispatcher",
+    category: "Notification System",
+    description: "Broadcast instant event webhooks directly to your Discord server channels for peace of mind while away from your PC.",
+    highlights: [
+      "Rich embed notifications when an account launches or joins a game",
+      "Disconnect and kick alerts with timestamped reason codes",
+      "Periodic status summaries of running instances and active accounts",
+      "Fully customizable webhook avatar, bot username, and embed color themes"
+    ],
+    icon: "M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+  }
+];
+---
+
+<Layout title="Features" description="Explore the full capability suite of Roblox Account Manager: multi-instance launching, AES cookie vault, FPS unlocker, and webhook telemetry.">
+  
+  <div class="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Header -->
+    <div class="text-center max-w-3xl mx-auto mb-20 reveal-on-scroll">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-600 dark:text-purple-300 border border-purple-500/20 mb-4">
+        Platform Capabilities
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white mb-6">
+        Engineered specifically for <span class="gradient-text">Roblox power users</span>
+      </h1>
+      <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+        Discover the tools, performance optimizations, and security layers built into every build of Roblox Account Manager on Windows.
+      </p>
+    </div>
+
+    <!-- Feature Deep Dive List -->
+    <div class="space-y-12">
+      {detailedFeatures.map((item, idx) => {
+        const isEven = idx % 2 === 1;
+        return (
+          <div class={`glass-panel rounded-3xl p-8 sm:p-12 reveal-on-scroll grid grid-cols-1 lg:grid-cols-12 gap-8 items-center ${isEven ? 'lg:flex-row-reverse' : ''}`}>
+            
+            <!-- Left Info Column -->
+            <div class="lg:col-span-7 space-y-5">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-purple-500/10 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 flex items-center justify-center border border-purple-500/20">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon} />
+                  </svg>
+                </div>
+                <span class="text-xs font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400 font-mono">
+                  {item.category}
+                </span>
+              </div>
+
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                {item.title}
+              </h2>
+
+              <p class="text-slate-600 dark:text-slate-400 text-base leading-relaxed">
+                {item.description}
+              </p>
+
+              <div class="pt-2">
+                <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Key highlights:</h3>
+                <ul class="space-y-2.5">
+                  {item.highlights.map((point) => (
+                    <li class="flex items-start gap-2.5 text-sm text-slate-700 dark:text-slate-300">
+                      <svg class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <!-- Right Visual Graphic Box -->
+            <div class="lg:col-span-5 bg-slate-100 dark:bg-[#0c0f17] border border-slate-200 dark:border-white/5 rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between min-h-[220px]">
+              <div class="flex items-center justify-between border-b border-slate-200 dark:border-white/5 pb-3">
+                <span class="text-xs font-mono text-slate-500">Module: {item.id}</span>
+                <span class="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-500">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Active
+                </span>
+              </div>
+
+              <div class="my-6 space-y-2">
+                <div class="h-2 w-3/4 rounded-full bg-purple-500/20"></div>
+                <div class="h-2 w-1/2 rounded-full bg-blue-500/20"></div>
+                <div class="h-2 w-2/3 rounded-full bg-indigo-500/20"></div>
+              </div>
+
+              <div class="flex items-center justify-between pt-3 border-t border-slate-200 dark:border-white/5 text-xs text-slate-500 dark:text-slate-400">
+                <span>Windows 64-bit Native</span>
+                <span class="text-purple-600 dark:text-purple-400 font-medium">Verified Stable</span>
+              </div>
+            </div>
+
+          </div>
+        );
+      })}
+    </div>
+
+    <!-- Bottom Download CTA -->
+    <div class="mt-20 p-10 rounded-3xl glass-panel text-center relative overflow-hidden reveal-on-scroll">
+      <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-4">
+        Ready to try Roblox Account Manager?
+      </h3>
+      <p class="text-slate-600 dark:text-slate-400 max-w-lg mx-auto mb-8 text-sm sm:text-base">
+        Download the free Windows executable right now. No sign-up, no payment details.
+      </p>
+      <a 
+        href={downloadLink}
+        download="RobloxAccountManager-Setup.exe"
+        class="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl font-bold text-white bg-gradient-to-r from-purple-600 to-blue-600 shadow-lg shadow-purple-600/30 hover:scale-105 transition-transform"
+      >
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+          <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4h-13.051M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-13.051-1.802" />
+        </svg>
+        <span>Download Free for Windows</span>
+      </a>
+    </div>
+
+  </div>
+
+</Layout>
+

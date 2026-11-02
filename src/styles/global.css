@@ -1,0 +1,217 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --surface-rgb: 246 246 248;
+  --bg-primary: #f6f6f8;
+  --bg-secondary: #ffffff;
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-card-hover: rgba(248, 250, 252, 0.95);
+  --border-color: rgba(15, 18, 24, 0.08);
+  --text-primary: #0f1218;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --accent: #6571ff;
+  --accent-light: #7a85ff;
+  --shine-inset: inset 0 2px 0 rgba(255, 255, 255, 0.4);
+  --shine-inset-subtle: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 0 0 1px rgba(15, 18, 30, 0.08);
+  --hero-glow: radial-gradient(circle at 50% 20%, rgba(101, 113, 255, 0.12) 0%, rgba(59, 130, 246, 0.06) 50%, transparent 80%);
+}
+
+html.dark {
+  --surface-rgb: 13 17 23;
+  --bg-primary: #07090e;
+  --bg-secondary: #0d1117;
+  --bg-card: rgba(18, 22, 34, 0.75);
+  --bg-card-hover: rgba(26, 32, 50, 0.85);
+  --border-color: rgba(255, 255, 255, 0.09);
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --accent: #6571ff;
+  --accent-light: #7a85ff;
+  --shine-inset: inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  --shine-inset-subtle: inset 0 2px 0 rgba(255, 255, 255, 0.12);
+  --hero-glow: radial-gradient(circle at 50% 20%, rgba(101, 113, 255, 0.28) 0%, rgba(59, 130, 246, 0.16) 45%, transparent 75%);
+}
+
+html {
+  scroll-behavior: smooth;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-x: hidden;
+}
+
+/* SellAuth Signature Gradient Button */
+.btn-sellauth-primary {
+  background: linear-gradient(180deg, #7a85ff 0%, #6571ff 100%);
+  box-shadow: var(--shine-inset), 0 2px 8px rgba(101, 113, 255, 0.25);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-sellauth-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shine-inset), 0 4px 16px rgba(101, 113, 255, 0.4);
+}
+
+.btn-sellauth-primary:active {
+  transform: translateY(0);
+}
+
+.btn-sellauth-secondary {
+  box-shadow: var(--shine-inset-subtle), 0 1px 4px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-sellauth-secondary:hover {
+  transform: translateY(-1px);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #a855f7 0%, #6571ff 45%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+html:not(.dark) .gradient-text {
+  background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 50%, #2563eb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glassmorphism panel */
+.glass-panel {
+  background-color: var(--bg-card);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid var(--border-color);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel-hover:hover {
+  background-color: var(--bg-card-hover);
+  border-color: rgba(101, 113, 255, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px -12px rgba(101, 113, 255, 0.18);
+}
+
+/* SellAuth Floating Header Pill */
+.sellauth-floating-header {
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(15, 18, 24, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), inset 0 0 0 1px rgba(15, 18, 24, 0.03);
+}
+
+html.dark .sellauth-floating-header {
+  background: rgba(13, 17, 23, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+/* Subtle Grid Background Pattern */
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+html:not(.dark) .bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+}
+
+/* Interactive Scrolling Animations: Top-Down, Left-to-Right, and Right-to-Left */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-55px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(55px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-visible,
+.reveal-left.is-visible,
+.reveal-right.is-visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.45);
+}
+
+/* Smooth FAQ Accordion Dropdown Animation */
+.faq-accordion-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faq-item.is-open .faq-accordion-body {
+  grid-template-rows: 1fr;
+}
+
+.faq-accordion-inner {
+  overflow: hidden;
+}
+
+.faq-answer-text {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faq-item.is-open .faq-answer-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.faq-chevron {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faq-item.is-open .faq-chevron {
+  transform: rotate(180deg);
+}

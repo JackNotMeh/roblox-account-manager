@@ -1,0 +1,155 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const downloadLink = "/downloads/RobloxAccountManager-Setup.exe";
+
+const docsSections = [
+  {
+    id: "getting-started",
+    title: "1. Getting Started & Windows Setup",
+    content: `
+      Roblox Account Manager is packaged as a standalone 64-bit Windows desktop executable. No prerequisite runtimes or Python environments are needed.
+      
+      Requirements:
+      • Windows 10 (Build 19041+) or Windows 11 64-bit
+      • Standard Roblox Player installed from the official Roblox website
+      • Administrative permissions only if installing to C:\\Program Files (portable mode recommended)
+    `
+  },
+  {
+    id: "account-vault",
+    title: "2. Encrypted Vault & Cookie Management",
+    content: `
+      Your account credentials and .ROBLOSECURITY cookies are kept securely in an encrypted local database using AES-256 GCM.
+      
+      How to Import an Account:
+      1. Open Roblox Account Manager and navigate to the "Accounts" tab on the sidebar.
+      2. Click "+ Import Cookie" or "Add Account".
+      3. Enter your account username and paste your .ROBLOSECURITY cookie token.
+      4. The Account Checker immediately validates the token against the official Roblox API and displays the account's age, Robux balance, and avatar thumbnail.
+      5. Your token is encrypted with your master vault key and saved to your local drive.
+    `
+  },
+  {
+    id: "multi-instance",
+    title: "3. Multi-Instance Launching Workflow",
+    content: `
+      Roblox Account Manager leverages native Windows mutex bypass hooks so you can run two or more concurrent Roblox client processes on the same computer.
+      
+      Launching Multiple Accounts:
+      1. Open the "Launch" tab on the left sidebar.
+      2. Check or select the accounts you wish to launch from your vaulted list.
+      3. Choose your destination mode:
+         • Game (Place ID or Experience URL)
+         • Private Server (VIP server link or code)
+         • Job ID (Specific server instance ID)
+         • Join Person (Username to follow into game)
+      4. Adjust the "Wait between accounts" slider (recommended 5s - 10s to ensure clean game client initializations).
+      5. Click the primary "Launch" button. Each client will spawn in sequence.
+    `
+  },
+  {
+    id: "fps-optimization",
+    title: "4. FPS Uncapping & Background Throttling",
+    content: `
+      By default, the standard Roblox client locks render framerate to 60 FPS. Roblox Account Manager allows you to unlock framerates or optimize resource usage:
+      
+      • Unlocked FPS: Set to 144, 240, or Unlimited for ultra-smooth gameplay on high-refresh-rate monitors.
+      • Background Throttling: Automatically lowers background client windows to 15 or 30 FPS. This saves immense GPU power, VRAM, and CPU utilization when running 5+ instances simultaneously.
+    `
+  },
+  {
+    id: "webhooks",
+    title: "5. Discord Webhooks & Event Notifications",
+    content: `
+      You can configure Roblox Account Manager to send real-time alerts directly to a channel in your Discord server:
+      
+      1. Go to "Settings" -> "Webhooks" in the desktop app.
+      2. Paste your Discord Webhook URL.
+      3. Toggle the events you want to monitor:
+         • Launch Successful
+         • Disconnect / Game Crash Watchdog
+         • Daily Account Balance & RAP Summary
+      4. Hit "Send Test Webhook" to verify communication.
+    `
+  },
+  {
+    id: "troubleshooting",
+    title: "6. Troubleshooting & Common Questions",
+    content: `
+      • "Windows protected your PC" (SmartScreen): Because this is a fresh testing build, Windows SmartScreen may show an unknown publisher warning. Click "More info" and select "Run anyway".
+      • Game crashes on second launch: Ensure "Multi-Instance" is enabled in Settings and set a longer delay (e.g. 8-10 seconds) between launches on slower machines.
+      • Cookie expired notice: If you log out manually from a web browser, Roblox invalidates that session token. Re-extract your fresh .ROBLOSECURITY cookie and update the account in your vault.
+    `
+  }
+];
+---
+
+<Layout title="Documentation" description="Complete user guide for Roblox Account Manager: installation on Windows, importing accounts, multi-instance configuration, and troubleshooting.">
+  
+  <div class="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Header -->
+    <div class="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-600 dark:text-purple-300 border border-purple-500/20 mb-4">
+        User Manual & Reference
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white mb-6">
+        Roblox Account Manager <span class="gradient-text">Documentation</span>
+      </h1>
+      <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+        Everything you need to know about setting up, launching, and managing accounts with Roblox Account Manager on Windows.
+      </p>
+    </div>
+
+    <!-- Docs Layout: Sidebar index + Content body -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Table of Contents sticky sidebar -->
+      <aside class="hidden lg:block lg:col-span-4 sticky top-28 glass-panel rounded-2xl p-6">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-4">
+          On This Page
+        </h2>
+        <nav class="space-y-2 text-sm">
+          {docsSections.map((sec) => (
+            <a 
+              href={`#${sec.id}`} 
+              class="block py-1.5 px-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors text-xs font-medium"
+            >
+              {sec.title}
+            </a>
+          ))}
+        </nav>
+        
+        <div class="mt-6 pt-6 border-t border-slate-200 dark:border-white/10">
+          <a 
+            href={downloadLink}
+            download="RobloxAccountManager-Setup.exe"
+            class="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl font-bold text-xs text-white bg-gradient-to-r from-purple-600 to-blue-600 shadow-md hover:scale-105 transition-all text-center"
+          >
+            <span>Download .exe Installer</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- Main Docs Content Area -->
+      <main class="lg:col-span-8 space-y-8">
+        {docsSections.map((sec) => (
+          <section id={sec.id} class="glass-panel rounded-3xl p-8 sm:p-10 reveal-on-scroll scroll-mt-28">
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-4 flex items-center gap-3">
+              <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
+              {sec.title}
+            </h2>
+            <div class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed whitespace-pre-line font-sans space-y-3">
+              {sec.content.trim()}
+            </div>
+          </section>
+        ))}
+      </main>
+
+    </div>
+
+  </div>
+
+</Layout>
+

@@ -1,0 +1,653 @@
+---
+import Layout from '../layouts/Layout.astro';
+import InteractiveMockup from '../components/InteractiveMockup.astro';
+
+const downloadLink = "/downloads/RobloxAccountManager-Setup.exe";
+const discordLink = "https://discord.gg/placeholder-ram";
+
+const coreFeatures = [
+  {
+    title: "Multi-Instance Roblox Engine",
+    description: "Launch unlimited concurrent Roblox clients simultaneously without interference, process collisions, or manual mutex tinkering.",
+    icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
+    badge: "Core Engine",
+    reveal: "reveal-left"
+  },
+  {
+    title: "Encrypted Cookie & Session Vault",
+    description: "Your .ROBLOSECURITY tokens and session credentials stay encrypted locally on your Windows machine with AES-256 GCM security.",
+    icon: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z",
+    badge: "Local Security",
+    reveal: "reveal-on-scroll"
+  },
+  {
+    title: "One-Click Place & VIP Teleport",
+    description: "Input a Place ID, Job ID, VIP Server link, or join a friend profile instantly across all chosen accounts with automatic retry queues.",
+    icon: "M13 10V3L4 14h7v7l9-11h-7z",
+    badge: "Instant Join",
+    reveal: "reveal-right"
+  },
+  {
+    title: "Live Account Checker & RAP Monitor",
+    description: "Track account age, Robux balance, Limited RAP value, 2FA token health, and ban state in one unified dashboard overview.",
+    icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
+    badge: "Real-time",
+    reveal: "reveal-left"
+  },
+  {
+    title: "FPS Unlocker & Resource Throttler",
+    description: "Break the 60 FPS lock or cap background client processes down to 15 FPS to conserve GPU memory and CPU cycles while multi-boxing.",
+    icon: "M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4",
+    badge: "Performance",
+    reveal: "reveal-on-scroll"
+  },
+  {
+    title: "Discord Webhook Event Dispatcher",
+    description: "Forward launch notifications, account disconnect alerts, and in-game milestone logs straight to your private Discord server channel.",
+    icon: "M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9",
+    badge: "Automation",
+    reveal: "reveal-right"
+  }
+];
+
+const pricingTiers = [
+  {
+    id: "free",
+    name: "Free Testing",
+    status: "Available Now",
+    statusType: "active",
+    price: "$0",
+    frequency: "Free forever for testers",
+    description: "The complete desktop application available now for public testing. Zero fees, ads, or artificial limits.",
+    features: [
+      "Unlimited local account vault",
+      "Multi-instance concurrent launches",
+      "Instant Place ID & VIP joiner",
+      "AES-256 GCM encrypted storage",
+      "FPS unlocker (up to 360 FPS)",
+      "Discord webhook status alerts"
+    ],
+    ctaText: "Download Free (.exe)",
+    isDownload: true,
+    highlighted: true,
+    reveal: "reveal-left"
+  },
+  {
+    id: "weekly",
+    name: "Weekly Pass",
+    status: "Planned Tier",
+    statusType: "planned",
+    price: "$2.99",
+    frequency: "per week (estimated)",
+    description: "Planned short-term tier for tournament weekends, farming events, and limited runs.",
+    features: [
+      "Everything in Free Testing",
+      "Auto-reconnect watchdog (planned)",
+      "Custom proxy rotation slots (planned)",
+      "Priority launch queue (planned)",
+      "Automated captcha assistant (planned)"
+    ],
+    ctaText: "Planned Tier",
+    isDownload: false,
+    highlighted: false,
+    reveal: "reveal-left"
+  },
+  {
+    id: "monthly",
+    name: "Monthly Pro",
+    status: "Planned Tier",
+    statusType: "planned",
+    price: "$7.99",
+    frequency: "per month (estimated)",
+    description: "Planned subscription tier for regular players, active traders, and continuous farming.",
+    features: [
+      "Everything in Weekly Pass",
+      "Remote Discord bot launcher (planned)",
+      "Encrypted cloud vault backup (planned)",
+      "Custom performance profiles (planned)",
+      "Expanded 30-day activity telemetry"
+    ],
+    ctaText: "Planned Tier",
+    isDownload: false,
+    highlighted: false,
+    reveal: "reveal-right"
+  },
+  {
+    id: "lifetime",
+    name: "Lifetime Access",
+    status: "Planned Tier",
+    statusType: "planned",
+    price: "$49.99",
+    frequency: "one-time payment (estimated)",
+    description: "Planned permanent pass for developers and collectors wanting perpetual updates.",
+    features: [
+      "Perpetual access to all future updates",
+      "Early insider beta builds",
+      "Priority feature roadmap voting",
+      "Exclusive Discord VIP role badge",
+      "No recurring fees ever"
+    ],
+    ctaText: "Planned Tier",
+    isDownload: false,
+    highlighted: false,
+    reveal: "reveal-right"
+  }
+];
+
+const faqs = [
+  {
+    q: "Is Roblox Account Manager completely free to download?",
+    a: "Yes! The software is currently offered as a 100% free download for testing. There are no registration gates, paywalls, or feature locks.",
+    reveal: "reveal-left"
+  },
+  {
+    q: "Which operating systems are supported?",
+    a: "Roblox Account Manager is built specifically and exclusively for Windows (Windows 10 and Windows 11, 64-bit). macOS and Linux are not supported.",
+    reveal: "reveal-right"
+  },
+  {
+    q: "How does the direct download work?",
+    a: "Clicking the Get started or Free Download button triggers the immediate download of the standalone RobloxAccountManager-Setup.exe installer. No email, discord verification, or captcha required.",
+    reveal: "reveal-left"
+  },
+  {
+    q: "Are my accounts and cookies secure?",
+    a: "Yes. All .ROBLOSECURITY cookies and profile data are stored strictly on your local PC in an encrypted AES-256 database. No credentials ever touch external servers.",
+    reveal: "reveal-right"
+  },
+  {
+    q: "Can I run multiple Roblox accounts into Steal An Egg or any other experience?",
+    a: "Absolutely. Using the Place ID, Job ID, or Private Server option, you can launch multiple accounts simultaneously directly into the identical server instance.",
+    reveal: "reveal-on-scroll"
+  }
+];
+---
+
+<Layout title="Home" description="The modern desktop Roblox Account Manager for Windows. Manage accounts, launch multi-instance games, unlock FPS, and protect your cookies.">
+  
+  <!-- HERO SECTION (Styled exactly to SellAuth landing page reference) -->
+  <section class="relative pt-6 pb-20 sm:pt-10 sm:pb-28 overflow-hidden text-center">
+    
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <!-- SellAuth-style Announcement Pill Badge -->
+      <div class="inline-flex items-center gap-2 rounded-full border border-slate-300/80 dark:border-white/10 bg-slate-100/80 dark:bg-white/[0.04] px-4 py-1.5 backdrop-blur-lg text-xs font-medium tracking-[0.01em] text-slate-700 dark:text-white/70 mb-8 shadow-sm cursor-default reveal-on-scroll">
+        <svg class="w-3.5 h-3.5 text-[#6571ff] fill-current animate-pulse" viewBox="0 0 24 24">
+          <path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.2L12 16.8 5.7 21.2 8 14 2 9.4h7.6z"/>
+        </svg>
+        <span>Introducing Roblox Account Manager v3.2</span>
+      </div>
+
+      <!-- Bold Primary Tagline from SellAuth screenshot -->
+      <h1 class="text-4xl sm:text-6xl lg:text-[76px] font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.05] mb-6 reveal-on-scroll">
+        The account manager <br class="hidden sm:inline" />
+        <span class="gradient-text">built for scale.</span>
+      </h1>
+
+      <!-- Subtitle matching SellAuth font size and spacing -->
+      <p class="max-w-[560px] mx-auto text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-[1.65] mb-10 reveal-on-scroll">
+        Roblox Account Manager is the high-performance desktop platform that lets you manage unlimited accounts, launch concurrent game instances, and automate sessions with zero friction.
+      </p>
+
+      <!-- CTA Buttons matching SellAuth layout -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-14 reveal-on-scroll">
+        
+        <!-- Primary Pill Button: "Get started" (Free .exe Download, NO gate, immediate) -->
+        <a 
+          href={downloadLink}
+          download="RobloxAccountManager-Setup.exe"
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-full py-2.5 pl-6 pr-2.5 text-sm font-semibold text-white btn-sellauth-primary group"
+        >
+          <span>Get started</span>
+          <span class="flex h-[24px] w-[24px] items-center justify-center rounded-full bg-white/20 transition-transform group-hover:translate-x-0.5">
+            <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </span>
+        </a>
+
+        <!-- Secondary Pill Button: "More details" -->
+        <a 
+          href="/features"
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full py-2.5 pl-6 pr-2.5 text-sm font-medium text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 btn-sellauth-secondary group hover:text-slate-900 dark:hover:text-white"
+        >
+          <span>More details</span>
+          <span class="flex h-[24px] w-[24px] items-center justify-center rounded-full border border-slate-300 dark:border-white/20 transition-transform group-hover:translate-x-0.5">
+            <svg class="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </span>
+        </a>
+
+      </div>
+
+      <!-- Windows Subtext Notice -->
+      <div class="flex items-center justify-center gap-4 text-xs text-slate-500 dark:text-slate-400 mb-10 reveal-on-scroll">
+        <span class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          Direct .exe download
+        </span>
+        <span>&bull;</span>
+        <span>Windows 10 / 11 Compatible</span>
+        <span>&bull;</span>
+        <span>No registration needed</span>
+      </div>
+
+    </div>
+
+    <!-- EMBEDDED DASHBOARD MOCKUP -->
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-2 relative z-20 reveal-on-scroll">
+      <InteractiveMockup />
+    </div>
+
+  </section>
+
+  <!-- FEATURES OVERVIEW SECTION with Dynamic Side Animations (Left & Right) -->
+  <section id="features" class="py-20 sm:py-28 relative border-t border-slate-200/80 dark:border-white/10 bg-slate-50/50 dark:bg-[#080b12]/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-[#6571ff] dark:text-[#7a85ff] mb-3">
+          Unmatched Capabilities
+        </h2>
+        <h3 class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">
+          Everything you need for serious multi-client gaming
+        </h3>
+        <p class="text-slate-600 dark:text-slate-400 text-base leading-relaxed">
+          Engineered for power users, developers, and collectors who require reliable automation and high concurrency on Windows.
+        </p>
+      </div>
+
+      <!-- Feature Grid with Left / Right Side Reveal Animations -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        {coreFeatures.map((feat) => (
+          <div class={`glass-panel glass-panel-hover rounded-2xl p-6 sm:p-7 relative flex flex-col justify-between ${feat.reveal}`}>
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <div class="w-12 h-12 rounded-xl bg-purple-500/10 dark:bg-purple-500/20 text-[#6571ff] dark:text-[#7a85ff] flex items-center justify-center border border-purple-500/20">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={feat.icon} />
+                  </svg>
+                </div>
+                <span class="text-[11px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10">
+                  {feat.badge}
+                </span>
+              </div>
+              <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
+                {feat.title}
+              </h4>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                {feat.description}
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-200/50 dark:border-white/5 flex items-center text-xs font-medium text-[#6571ff] dark:text-[#7a85ff]">
+              <a href="/features" class="inline-flex items-center gap-1 hover:underline">
+                <span>Learn more</span>
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS SECTION with Left / Center / Right animations -->
+  <section class="py-20 sm:py-28 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-[#6571ff] dark:text-[#7a85ff] mb-3">
+          Simple Workflow
+        </h2>
+        <h3 class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">
+          Up and running in less than 60 seconds
+        </h3>
+        <p class="text-slate-600 dark:text-slate-400 text-base leading-relaxed">
+          Zero complicated setup scripts. Just download the standalone desktop client and start launching.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+        
+        <!-- Step 1 (Reveals from Left) -->
+        <div class="glass-panel rounded-2xl p-7 relative reveal-left">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 text-white flex items-center justify-center font-bold text-base mb-6 shadow-md shadow-purple-500/20">
+            1
+          </div>
+          <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2">
+            Download Standalone .exe
+          </h4>
+          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+            Grab the lightweight Windows installer directly from this site. No external dependencies, bloat, or background services.
+          </p>
+          <div class="p-3 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 font-mono text-xs text-slate-600 dark:text-slate-300">
+            RobloxAccountManager-Setup.exe (~2 MB)
+          </div>
+        </div>
+
+        <!-- Step 2 (Reveals from Center/Bottom) -->
+        <div class="glass-panel rounded-2xl p-7 relative reveal-on-scroll">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-blue-600 text-white flex items-center justify-center font-bold text-base mb-6 shadow-md shadow-blue-500/20">
+            2
+          </div>
+          <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2">
+            Import Your Accounts
+          </h4>
+          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+            Add accounts quickly via .ROBLOSECURITY cookies. Every profile is locked inside your local encrypted AES vault.
+          </p>
+          <div class="p-3 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 font-mono text-xs text-slate-600 dark:text-slate-300">
+            AES-256 GCM Local Key Vault
+          </div>
+        </div>
+
+        <!-- Step 3 (Reveals from Right) -->
+        <div class="glass-panel rounded-2xl p-7 relative reveal-right">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-600 text-white flex items-center justify-center font-bold text-base mb-6 shadow-md shadow-cyan-500/20">
+            3
+          </div>
+          <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2">
+            Pick Destination & Launch
+          </h4>
+          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+            Choose Place ID, VIP link, or friend profile. Hit Launch to start multiple client instances simultaneously.
+          </p>
+          <div class="p-3 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 font-mono text-xs text-slate-600 dark:text-slate-300">
+            Concurrent Isolated Processes
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PRICING SECTION with Side Reveal Animations (Left & Right) & Interactive Filter -->
+  <section id="pricing" class="py-20 sm:py-28 relative border-t border-slate-200/80 dark:border-white/10 bg-slate-50/50 dark:bg-[#080b12]/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Heading -->
+      <div class="text-center max-w-3xl mx-auto mb-14 reveal-on-scroll">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-[#6571ff] dark:text-[#7a85ff] mb-3">
+          Transparent Pricing
+        </h2>
+        <h3 class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">
+          Free to use for testing. <br class="hidden sm:inline" />
+          <span class="gradient-text">Planned premium tiers ahead.</span>
+        </h3>
+        <p class="text-slate-600 dark:text-slate-400 text-base leading-relaxed">
+          The current release is 100% free with no registration or paywalls. Explore our current free testing build and upcoming planned tiers below.
+        </p>
+
+        <!-- Interactive Plan Filter Toggle -->
+        <div class="mt-8 inline-flex p-1.5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs font-semibold select-none">
+          <button 
+            id="home-filter-all" 
+            type="button" 
+            class="home-pricing-filter-btn px-4 py-2 rounded-xl transition-all bg-white dark:bg-purple-600 text-slate-900 dark:text-white shadow-sm"
+          >
+            All 4 Tiers
+          </button>
+          <button 
+            id="home-filter-free" 
+            type="button" 
+            class="home-pricing-filter-btn px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all"
+          >
+            Free Download (Active)
+          </button>
+          <button 
+            id="home-filter-planned" 
+            type="button" 
+            class="home-pricing-filter-btn px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all"
+          >
+            Planned Tiers (Preview)
+          </button>
+        </div>
+      </div>
+
+      <!-- 4 Equal Pricing Cards with Side Reveal Animations -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+        {pricingTiers.map((tier) => (
+          <div 
+            data-tier-type={tier.statusType}
+            class={`home-pricing-card rounded-3xl p-7 flex flex-col justify-between transition-all duration-300 relative ${tier.reveal} ${
+              tier.highlighted 
+                ? 'glass-panel border-purple-500/50 dark:border-purple-500/60 shadow-xl shadow-purple-500/10 ring-2 ring-purple-500/20' 
+                : 'glass-panel glass-panel-hover'
+            }`}
+          >
+            {tier.highlighted && (
+              <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-md">
+                Current Release
+              </div>
+            )}
+
+            <div>
+              <!-- Tier Header -->
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+                  {tier.name}
+                </h3>
+                <span class={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${
+                  tier.statusType === 'active' 
+                    ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30' 
+                    : 'bg-slate-200 dark:bg-white/5 text-slate-500 dark:text-slate-400 border-slate-300 dark:border-white/10'
+                }`}>
+                  {tier.status}
+                </span>
+              </div>
+
+              <!-- Price -->
+              <div class="mb-4">
+                <span class="text-4xl font-extrabold text-slate-900 dark:text-white font-mono tracking-tight">
+                  {tier.price}
+                </span>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                  {tier.frequency}
+                </p>
+              </div>
+
+              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-6 pb-6 border-b border-slate-200/60 dark:border-white/10">
+                {tier.description}
+              </p>
+
+              <!-- Features list -->
+              <ul class="space-y-3 mb-8 text-xs text-slate-700 dark:text-slate-300">
+                {tier.features.map((feature) => (
+                  <li class="flex items-start gap-2.5">
+                    <svg class={`w-4 h-4 shrink-0 mt-0.5 ${tier.statusType === 'active' ? 'text-emerald-500' : 'text-purple-400'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <!-- Action Button: Free download has direct immediate exe download; Planned tiers have non-checkout placeholder -->
+            <div class="pt-4 border-t border-slate-200/60 dark:border-white/5">
+              {tier.isDownload ? (
+                <a 
+                  href={downloadLink}
+                  download="RobloxAccountManager-Setup.exe"
+                  class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 shadow-md shadow-purple-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                >
+                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4h-13.051M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-13.051-1.802" />
+                  </svg>
+                  <span>{tier.ctaText}</span>
+                </a>
+              ) : (
+                <button 
+                  type="button" 
+                  disabled 
+                  class="w-full py-3 px-4 rounded-xl font-semibold text-xs text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 cursor-not-allowed text-center select-none"
+                >
+                  Planned (Layout Only)
+                </button>
+              )}
+            </div>
+
+          </div>
+        ))}
+      </div>
+
+      <!-- Link to full pricing page -->
+      <div class="mt-12 text-center reveal-on-scroll">
+        <a 
+          href="/pricing" 
+          class="inline-flex items-center gap-2 text-xs font-semibold text-[#6571ff] dark:text-[#7a85ff] hover:underline"
+        >
+          <span>View full tier comparison and licensing details</span>
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ SECTION with alternating side reveals -->
+  <section class="py-20 sm:py-28 relative">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-16 reveal-on-scroll">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-[#6571ff] dark:text-[#7a85ff] mb-3">
+          Frequently Asked Questions
+        </h2>
+        <h3 class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+          Got questions? We've got answers.
+        </h3>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq, idx) => (
+          <div class={`faq-item group glass-panel rounded-2xl p-6 transition-all duration-300 ${faq.reveal}`}>
+            <button 
+              type="button" 
+              class="faq-trigger w-full flex items-center justify-between font-semibold text-base sm:text-lg text-slate-900 dark:text-white text-left cursor-pointer focus:outline-none"
+              aria-expanded="false"
+              aria-controls={`faq-answer-${idx}`}
+            >
+              <span>{faq.q}</span>
+              <span class="faq-chevron w-7 h-7 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-500 shrink-0 ml-4 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </span>
+            </button>
+
+            <div id={`faq-answer-${idx}`} class="faq-accordion-body">
+              <div class="faq-accordion-inner">
+                <p class="faq-answer-text mt-4 text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-200/60 dark:border-white/5 pt-3">
+                  {faq.a}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FINAL CALL TO ACTION (CTA) -->
+  <section class="py-24 sm:py-32 relative overflow-hidden text-center">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#6571ff]/10 to-transparent pointer-events-none"></div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 reveal-on-scroll">
+      
+      <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-2xl bg-gradient-to-tr from-purple-600 to-blue-600 p-1 shadow-xl shadow-purple-500/25">
+        <img src="/images/logo.png" alt="AM" class="w-full h-full object-contain" />
+      </div>
+
+      <h2 class="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white mb-6">
+        Ready to supercharge your Roblox accounts?
+      </h2>
+      <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-xl mx-auto mb-10 leading-relaxed">
+        Download Roblox Account Manager for Windows now for free and experience the fastest multi-client workflow available.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a 
+          href={downloadLink}
+          download="RobloxAccountManager-Setup.exe"
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-full py-4 px-8 font-bold text-white text-base btn-sellauth-primary"
+        >
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4h-13.051M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-13.051-1.802" />
+          </svg>
+          <span>Free Download (RobloxAccountManager-Setup.exe)</span>
+        </a>
+
+        <a 
+          href={discordLink} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full py-4 px-7 font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 transition-all hover:scale-105 active:scale-95"
+        >
+          <svg class="w-5 h-5 fill-current text-[#5865F2]" viewBox="0 0 24 24">
+            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+          </svg>
+          <span>Join Community Discord</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  // Home pricing filter toggle
+  const homeFilterAllBtn = document.getElementById('home-filter-all');
+  const homeFilterFreeBtn = document.getElementById('home-filter-free');
+  const homeFilterPlannedBtn = document.getElementById('home-filter-planned');
+  const homeFilterButtons = document.querySelectorAll('.home-pricing-filter-btn');
+  const homeCards = document.querySelectorAll('.home-pricing-card');
+
+  const setHomeFilter = (type: 'all' | 'active' | 'planned', activeBtn: HTMLElement | null) => {
+    homeFilterButtons.forEach(btn => {
+      btn.classList.remove('bg-white', 'dark:bg-purple-600', 'text-slate-900', 'dark:text-white', 'shadow-sm');
+      btn.classList.add('text-slate-600', 'dark:text-slate-400');
+    });
+
+    activeBtn?.classList.add('bg-white', 'dark:bg-purple-600', 'text-slate-900', 'dark:text-white', 'shadow-sm');
+    activeBtn?.classList.remove('text-slate-600', 'dark:text-slate-400');
+
+    homeCards.forEach(card => {
+      const cardType = card.getAttribute('data-tier-type');
+      if (type === 'all' || cardType === type) {
+        (card as HTMLElement).style.display = 'flex';
+      } else {
+        (card as HTMLElement).style.display = 'none';
+      }
+    });
+  };
+
+  homeFilterAllBtn?.addEventListener('click', () => setHomeFilter('all', homeFilterAllBtn));
+  homeFilterFreeBtn?.addEventListener('click', () => setHomeFilter('active', homeFilterFreeBtn));
+  homeFilterPlannedBtn?.addEventListener('click', () => setHomeFilter('planned', homeFilterPlannedBtn));
+
+  // FAQ Smooth Dropdown Accordion
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach((item) => {
+    const trigger = item.querySelector('.faq-trigger');
+    trigger?.addEventListener('click', () => {
+      const isOpen = item.classList.contains('is-open');
+
+      if (isOpen) {
+        item.classList.remove('is-open');
+        trigger.setAttribute('aria-expanded', 'false');
+      } else {
+        item.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>

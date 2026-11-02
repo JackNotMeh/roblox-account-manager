@@ -1,0 +1,259 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const downloadLink = "/downloads/RobloxAccountManager-Setup.exe";
+
+const tiers = [
+  {
+    id: "free",
+    name: "Free Testing",
+    status: "Available Now",
+    statusType: "active",
+    price: "$0",
+    frequency: "Free forever for testers",
+    description: "The complete desktop application available now for public testing. Zero fees or limits.",
+    features: [
+      "Unlimited local account vault",
+      "Multi-instance concurrent launches",
+      "Instant Place ID & VIP joiner",
+      "AES-256 GCM encrypted storage",
+      "FPS unlocker (up to 360 FPS)",
+      "Discord webhook status alerts"
+    ],
+    ctaText: "Download Free (.exe)",
+    isDownload: true,
+    highlighted: true
+  },
+  {
+    id: "weekly",
+    name: "Weekly Pass",
+    status: "Planned Tier",
+    statusType: "planned",
+    price: "$2.99",
+    frequency: "per week (estimated)",
+    description: "Planned short-term tier for tournament weekends, farming events, and limited runs.",
+    features: [
+      "Everything in Free Testing",
+      "Auto-reconnect watchdog (planned)",
+      "Custom proxy rotation slots (planned)",
+      "Priority launch queue (planned)",
+      "Automated captcha assistant (planned)"
+    ],
+    ctaText: "Planned Tier",
+    isDownload: false,
+    highlighted: false
+  },
+  {
+    id: "monthly",
+    name: "Monthly Pro",
+    status: "Planned Tier",
+    statusType: "planned",
+    price: "$7.99",
+    frequency: "per month (estimated)",
+    description: "Planned subscription tier for regular players, active traders, and continuous farming.",
+    features: [
+      "Everything in Weekly Pass",
+      "Remote Discord bot launcher (planned)",
+      "Encrypted cloud vault backup (planned)",
+      "Custom performance profiles (planned)",
+      "Expanded 30-day activity telemetry"
+    ],
+    ctaText: "Planned Tier",
+    isDownload: false,
+    highlighted: false
+  },
+  {
+    id: "lifetime",
+    name: "Lifetime Access",
+    status: "Planned Tier",
+    statusType: "planned",
+    price: "$49.99",
+    frequency: "one-time payment (estimated)",
+    description: "Planned permanent pass for developers and collectors wanting perpetual updates.",
+    features: [
+      "Perpetual access to all future updates",
+      "Early insider beta builds",
+      "Priority feature roadmap voting",
+      "Exclusive Discord VIP role badge",
+      "No recurring fees ever"
+    ],
+    ctaText: "Planned Tier",
+    isDownload: false,
+    highlighted: false
+  }
+];
+---
+
+<Layout title="Pricing" description="Simple, transparent plans for Roblox Account Manager. Download the free testing build now, or view our planned tiers.">
+  
+  <div class="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Title & Subtitle -->
+    <div class="text-center max-w-3xl mx-auto mb-14 reveal-on-scroll">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-600 dark:text-purple-300 border border-purple-500/20 mb-4">
+        Pricing & Availability
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white mb-6">
+        Free to use for testing. <br class="hidden sm:inline" />
+        <span class="gradient-text">Planned premium tiers ahead.</span>
+      </h1>
+      <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+        The current release is 100% free with no registration or paywalls. Explore our current free testing build and upcoming planned tiers below.
+      </p>
+
+      <!-- Interactive Plan Filter Toggle -->
+      <div class="mt-8 inline-flex p-1.5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs font-semibold select-none">
+        <button 
+          id="filter-all" 
+          type="button" 
+          class="pricing-filter-btn px-4 py-2 rounded-xl transition-all bg-white dark:bg-purple-600 text-slate-900 dark:text-white shadow-sm"
+        >
+          All 4 Tiers
+        </button>
+        <button 
+          id="filter-free" 
+          type="button" 
+          class="pricing-filter-btn px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all"
+        >
+          Free Download (Active)
+        </button>
+        <button 
+          id="filter-planned" 
+          type="button" 
+          class="pricing-filter-btn px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all"
+        >
+          Planned Tiers (Preview)
+        </button>
+      </div>
+    </div>
+
+    <!-- 4 Equal Pricing Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+      {tiers.map((tier) => (
+        <div 
+          data-tier-type={tier.statusType}
+          class={`pricing-card rounded-3xl p-7 flex flex-col justify-between transition-all duration-300 relative reveal-on-scroll ${
+            tier.highlighted 
+              ? 'glass-panel border-purple-500/50 dark:border-purple-500/60 shadow-xl shadow-purple-500/10 ring-2 ring-purple-500/20' 
+              : 'glass-panel'
+          }`}
+        >
+          {tier.highlighted && (
+            <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-md">
+              Current Release
+            </div>
+          )}
+
+          <div>
+            <!-- Tier Header -->
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+                {tier.name}
+              </h3>
+              <span class={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${
+                tier.statusType === 'active' 
+                  ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30' 
+                  : 'bg-slate-200 dark:bg-white/5 text-slate-500 dark:text-slate-400 border-slate-300 dark:border-white/10'
+              }`}>
+                {tier.status}
+              </span>
+            </div>
+
+            <!-- Price -->
+            <div class="mb-4">
+              <span class="text-4xl font-extrabold text-slate-900 dark:text-white font-mono tracking-tight">
+                {tier.price}
+              </span>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                {tier.frequency}
+              </p>
+            </div>
+
+            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-6 pb-6 border-b border-slate-200/60 dark:border-white/10">
+              {tier.description}
+            </p>
+
+            <!-- Features list -->
+            <ul class="space-y-3 mb-8 text-xs text-slate-700 dark:text-slate-300">
+              {tier.features.map((feature) => (
+                <li class="flex items-start gap-2.5">
+                  <svg class={`w-4 h-4 shrink-0 mt-0.5 ${tier.statusType === 'active' ? 'text-emerald-500' : 'text-purple-400'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Action Button: Free download has direct immediate exe download; Planned tiers have non-checkout placeholder -->
+          <div class="pt-4 border-t border-slate-200/60 dark:border-white/5">
+            {tier.isDownload ? (
+              <a 
+                href={downloadLink}
+                download="RobloxAccountManager-Setup.exe"
+                class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 shadow-md shadow-purple-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
+              >
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4h-13.051M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-13.051-1.802" />
+                </svg>
+                <span>{tier.ctaText}</span>
+              </a>
+            ) : (
+              <button 
+                type="button" 
+                disabled 
+                class="w-full py-3 px-4 rounded-xl font-semibold text-xs text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 cursor-not-allowed text-center select-none"
+              >
+                Planned (Layout Only)
+              </button>
+            )}
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+    <!-- Notice -->
+    <div class="mt-14 max-w-2xl mx-auto text-center text-xs text-slate-500 dark:text-slate-400 leading-relaxed reveal-on-scroll">
+      <p>
+        Note: The Free Testing tier includes full access to all local account manager capabilities. Planned tiers are currently conceptual layout cards and do not process orders, payments, or subscriptions.
+      </p>
+    </div>
+
+  </div>
+
+</Layout>
+
+<script>
+  // Filter toggle logic for Pricing cards
+  const filterAllBtn = document.getElementById('filter-all');
+  const filterFreeBtn = document.getElementById('filter-free');
+  const filterPlannedBtn = document.getElementById('filter-planned');
+  const filterButtons = document.querySelectorAll('.pricing-filter-btn');
+  const cards = document.querySelectorAll('.pricing-card');
+
+  const setFilter = (type: 'all' | 'active' | 'planned', activeBtn: HTMLElement | null) => {
+    filterButtons.forEach(btn => {
+      btn.classList.remove('bg-white', 'dark:bg-purple-600', 'text-slate-900', 'dark:text-white', 'shadow-sm');
+      btn.classList.add('text-slate-600', 'dark:text-slate-400');
+    });
+
+    activeBtn?.classList.add('bg-white', 'dark:bg-purple-600', 'text-slate-900', 'dark:text-white', 'shadow-sm');
+    activeBtn?.classList.remove('text-slate-600', 'dark:text-slate-400');
+
+    cards.forEach(card => {
+      const cardType = card.getAttribute('data-tier-type');
+      if (type === 'all' || cardType === type) {
+        (card as HTMLElement).style.display = 'flex';
+      } else {
+        (card as HTMLElement).style.display = 'none';
+      }
+    });
+  };
+
+  filterAllBtn?.addEventListener('click', () => setFilter('all', filterAllBtn));
+  filterFreeBtn?.addEventListener('click', () => setFilter('active', filterFreeBtn));
+  filterPlannedBtn?.addEventListener('click', () => setFilter('planned', filterPlannedBtn));
+</script>
+
