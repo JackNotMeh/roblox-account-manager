@@ -181,18 +181,19 @@ const faqs = [
       <!-- Bold Primary Tagline with Dynamic Word (Random on refresh) & Full Natural Marker Underline -->
       <h1 class="text-4xl sm:text-6xl lg:text-[76px] font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.12] mb-6 reveal-on-scroll">
         The account manager <br class="hidden sm:inline" />
-        <span id="dynamic-headline-wrap" class="relative inline-block pb-3 sm:pb-4 text-center">
+        <span id="dynamic-headline-wrap" class="relative inline-block pb-4 sm:pb-6 text-center">
+          <!-- Text is explicitly z-10 so letters ALWAYS appear ON TOP of the underline stroke -->
           <span 
             id="dynamic-word" 
-            class="gradient-text transition-opacity duration-200 inline-block font-extrabold"
+            class="gradient-text transition-opacity duration-200 inline-block font-extrabold relative z-10"
           >
             Built for scale
           </span>
 
-          <!-- Natural Hand-Drawn Marker Underline SVG (Spans 100% of all letters) -->
+          <!-- Natural Hand-Drawn Marker Underline SVG (z-0 sits behind the text, with comfortable clearance) -->
           <svg 
             id="marker-underline-svg" 
-            class="absolute left-0 -bottom-1 sm:-bottom-1.5 w-full h-[18px] sm:h-[22px] overflow-visible pointer-events-none" 
+            class="absolute left-0 -bottom-2 sm:-bottom-3 w-full h-[24px] sm:h-[28px] overflow-visible pointer-events-none z-0" 
             fill="none"
           >
             <defs>
@@ -713,31 +714,32 @@ const faqs = [
     dynamicWordEl.textContent = chosenPhrase;
   }
 
-  // Draw natural marker underline covering 100% of all letters
+  // Draw natural marker underline covering 100% of all letters below the baseline
   function setupAndAnimateUnderline() {
     if (!dynamicWordEl || !markerSvgEl || !markerPathEl) return;
 
     // Get exact rendered width of the randomized phrase
     const rect = dynamicWordEl.getBoundingClientRect();
     const wordWidth = Math.max(Math.ceil(rect.width), 160);
-    const svgHeight = 24;
+    const svgHeight = 28;
 
     markerSvgEl.setAttribute('viewBox', `0 0 ${wordWidth} ${svgHeight}`);
     markerSvgEl.style.width = `${wordWidth}px`;
 
     // Organic wavy stroke covering from the very first letter to slightly past the last letter
+    // yBase is at 20px so it sits cleanly below the baseline, clearing descenders like 'g' in mass-farming
     const startX = 3;
     const endX = wordWidth - 3;
     const cp1X = startX + (endX - startX) * 0.35;
-    const cp1Y = 7;
+    const cp1Y = 13;
     const midX = startX + (endX - startX) * 0.52;
-    const midY = 13;
+    const midY = 20;
     const cp2X = startX + (endX - startX) * 0.78;
-    const cp2Y = 8;
-    const endY = 11;
+    const cp2Y = 14;
+    const endY = 17;
 
     // Hand-drawn bezier curve mimicking realistic human marker sweep
-    const d = `M ${startX.toFixed(1)},14 Q ${cp1X.toFixed(1)},${cp1Y} ${midX.toFixed(1)},${midY} T ${endX.toFixed(1)},${endY}`;
+    const d = `M ${startX.toFixed(1)},20 Q ${cp1X.toFixed(1)},${cp1Y} ${midX.toFixed(1)},${midY} T ${endX.toFixed(1)},${endY}`;
     markerPathEl.setAttribute('d', d);
 
     // Compute exact length of the curve so there are ZERO gaps or partial dashes

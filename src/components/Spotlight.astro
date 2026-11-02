@@ -1,96 +1,96 @@
 ---
 // Atmospheric Top Spotlight Light Beam (SellAuth Style)
-// Perfectly centered at window.innerWidth / 2 (ceiling y=0).
-// Outer wrapper handles horizontal centering (-translate-x-1/2) so inner JS transforms never drift.
-// Features continuous living volumetric motion and interactive mouse-tracking physics.
+// Perfectly centered at window.innerWidth / 2.
+// Extended above the top ceiling (negative Y) so moving/tilting the light never leaves any gap or space.
+// Moves directly TOWARDS the mouse cursor with smooth physics damping.
 ---
 
 <div 
   id="spotlight-root" 
-  class="pointer-events-none absolute top-0 left-0 right-0 w-full h-[760px] sm:h-[860px] overflow-hidden z-[1] select-none"
+  class="pointer-events-none absolute -top-[80px] sm:-top-[100px] left-0 right-0 w-full h-[880px] sm:h-[980px] overflow-hidden z-[1] select-none"
   aria-hidden="true"
 >
-  <!-- Ambient Diffuse Ceiling Ellipse Flare (Anchored at exact center top) -->
-  <div class="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[650px] sm:w-[920px] h-[260px] sm:h-[320px] overflow-visible">
+  <!-- Ambient Diffuse Ceiling Flare (Starts deep above ceiling for seamless bleed) -->
+  <div class="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[700px] sm:w-[1000px] h-[320px] sm:h-[380px] overflow-visible">
     <div 
       id="spotlight-emitter" 
-      class="w-full h-full -top-[140px] absolute rounded-[100%] bg-gradient-to-b from-white/75 via-[#8b97ff]/40 to-transparent blur-[65px] dark:from-white/85 dark:via-[#7a85ff]/50 transition-transform duration-200 ease-out"
+      class="w-full h-full -top-[100px] absolute rounded-[100%] bg-gradient-to-b from-white/80 via-[#8b97ff]/45 to-transparent blur-[70px] dark:from-white/90 dark:via-[#7a85ff]/55 transition-transform duration-200 ease-out"
     ></div>
   </div>
 
-  <!-- Secondary Deep Purple/Indigo Glow Behind Rays (Center Locked) -->
-  <div class="absolute -top-[100px] left-1/2 -translate-x-1/2 w-[420px] sm:w-[620px] h-[240px] rounded-[100%] bg-gradient-to-b from-purple-500/35 via-indigo-600/25 to-transparent blur-[55px] dark:from-purple-500/45 dark:via-indigo-600/30"></div>
+  <!-- Secondary Deep Purple/Indigo Ambient Glow (Center Locked) -->
+  <div class="absolute -top-[40px] left-1/2 -translate-x-1/2 w-[460px] sm:w-[680px] h-[280px] rounded-[100%] bg-gradient-to-b from-purple-500/35 via-indigo-600/25 to-transparent blur-[60px] dark:from-purple-500/45 dark:via-indigo-600/30"></div>
 
   <!-- Centered Base Anchor: Left 50% & -50% translateX is LOCKED on this outer container -->
-  <div class="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[1240px] h-[780px] overflow-visible">
-    <!-- Dynamic Rotating Beam Container: Inner element transformed by JS from (0, 0) -->
+  <div class="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[1240px] h-[880px] overflow-visible">
+    <!-- Dynamic Rotating Beam Container: Inner element transformed by JS from (620, -40) -->
     <div 
       id="spotlight-beam-pivot" 
       class="w-full h-full pointer-events-none"
-      style="transform-origin: 620px 0px; will-change: transform, opacity;"
+      style="transform-origin: 620px 40px; will-change: transform, opacity;"
     >
       <svg 
         class="w-full h-full mix-blend-screen opacity-85 dark:opacity-95" 
-        viewBox="0 0 1240 780" 
+        viewBox="0 -60 1240 880" 
         fill="none" 
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
           <!-- Center Main Cone Gradient (Symmetric at center x=620) -->
           <linearGradient id="spotlight-main-grad" x1="50%" y1="0%" x2="50%" y2="100%">
-            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85" />
-            <stop offset="12%" stop-color="#c7d2fe" stop-opacity="0.60" />
-            <stop offset="38%" stop-color="#818cf8" stop-opacity="0.30" />
-            <stop offset="70%" stop-color="#6571ff" stop-opacity="0.12" />
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.90" />
+            <stop offset="12%" stop-color="#c7d2fe" stop-opacity="0.65" />
+            <stop offset="38%" stop-color="#818cf8" stop-opacity="0.32" />
+            <stop offset="70%" stop-color="#6571ff" stop-opacity="0.14" />
             <stop offset="100%" stop-color="#6571ff" stop-opacity="0" />
           </linearGradient>
 
           <!-- Left Ray Gradient -->
           <linearGradient id="spotlight-left-grad" x1="50%" y1="0%" x2="15%" y2="100%">
-            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65" />
-            <stop offset="18%" stop-color="#a5b4fc" stop-opacity="0.45" />
-            <stop offset="55%" stop-color="#6571ff" stop-opacity="0.18" />
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.70" />
+            <stop offset="18%" stop-color="#a5b4fc" stop-opacity="0.48" />
+            <stop offset="55%" stop-color="#6571ff" stop-opacity="0.20" />
             <stop offset="100%" stop-color="#6571ff" stop-opacity="0" />
           </linearGradient>
 
           <!-- Right Ray Gradient -->
           <linearGradient id="spotlight-right-grad" x1="50%" y1="0%" x2="85%" y2="100%">
-            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.65" />
-            <stop offset="18%" stop-color="#c084fc" stop-opacity="0.45" />
-            <stop offset="55%" stop-color="#a855f7" stop-opacity="0.18" />
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.70" />
+            <stop offset="18%" stop-color="#c084fc" stop-opacity="0.48" />
+            <stop offset="55%" stop-color="#a855f7" stop-opacity="0.20" />
             <stop offset="100%" stop-color="#6571ff" stop-opacity="0" />
           </linearGradient>
 
           <!-- Intense Core Specular Beam -->
           <linearGradient id="spotlight-core-grad" x1="50%" y1="0%" x2="50%" y2="100%">
-            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
-            <stop offset="25%" stop-color="#e0e7ff" stop-opacity="0.70" />
-            <stop offset="60%" stop-color="#818cf8" stop-opacity="0.25" />
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.98" />
+            <stop offset="25%" stop-color="#e0e7ff" stop-opacity="0.75" />
+            <stop offset="60%" stop-color="#818cf8" stop-opacity="0.28" />
             <stop offset="100%" stop-color="#6571ff" stop-opacity="0" />
           </linearGradient>
         </defs>
 
-        <!-- Center Volumetric Main Cone (Center axis: x=620) -->
+        <!-- Center Volumetric Main Cone (Extends upwards into negative space so rotation never exposes ceiling gap) -->
         <polygon 
           id="beam-main-cone"
-          points="575,0 665,0 890,760 350,760" 
+          points="570,-60 670,-60 920,820 320,820" 
           fill="url(#spotlight-main-grad)" 
           filter="blur(16px)" 
         />
 
         <!-- Left Angled Ray with Separate Pivot for 3D Perspective -->
-        <g id="beam-left-ray-group" style="transform-origin: 600px 0px; will-change: transform;">
+        <g id="beam-left-ray-group" style="transform-origin: 600px 40px; will-change: transform;">
           <polygon 
-            points="560,0 610,0 160,720 30,720" 
+            points="555,-60 610,-60 140,780 10,780" 
             fill="url(#spotlight-left-grad)" 
             filter="blur(24px)" 
           />
         </g>
 
         <!-- Right Angled Ray with Separate Pivot for 3D Perspective -->
-        <g id="beam-right-ray-group" style="transform-origin: 640px 0px; will-change: transform;">
+        <g id="beam-right-ray-group" style="transform-origin: 640px 40px; will-change: transform;">
           <polygon 
-            points="630,0 680,0 1210,720 1080,720" 
+            points="630,-60 685,-60 1230,780 1100,780" 
             fill="url(#spotlight-right-grad)" 
             filter="blur(24px)" 
           />
@@ -98,7 +98,7 @@
 
         <!-- Intense Core Specular Beam (Sharp Light Shaft directly down center x=620) -->
         <polygon 
-          points="605,0 635,0 720,520 520,520" 
+          points="605,-60 635,-60 720,580 520,580" 
           fill="url(#spotlight-core-grad)" 
           filter="blur(8px)" 
         />
@@ -106,12 +106,12 @@
         <!-- Central Ceiling Hotspot Specular Flare -->
         <ellipse 
           cx="620" 
-          cy="2" 
-          rx="90" 
-          ry="18" 
+          cy="40" 
+          rx="110" 
+          ry="24" 
           fill="#ffffff" 
-          fill-opacity="0.75" 
-          filter="blur(5px)" 
+          fill-opacity="0.85" 
+          filter="blur(6px)" 
         />
       </svg>
     </div>
@@ -168,15 +168,18 @@
       const halfWidth = window.innerWidth / 2;
 
       if (isMouseInside && mouseY < 1400) {
-        // Calculate mouse target angle: pivots towards cursor horizontally
-        const horizontalDelta = (mouseX - halfWidth) / halfWidth; // -1 (left edge) to 0 (center) to +1 (right edge)
-        // Maximum tilt angle of 18 degrees towards mouse
-        const mouseAngle = horizontalDelta * 18;
-        // Emitter slightly tracks mouse horizontally
+        // Calculate horizontal delta: -1 (left edge) to 0 (center) to +1 (right edge)
+        const horizontalDelta = (mouseX - halfWidth) / halfWidth;
+
+        // INVERTED SIGN: Negative CSS rotation angle swings the bottom of the beam TOWARDS the mouse!
+        // Moving mouse to the right moves beam to the right; moving mouse to the left moves beam to the left!
+        const mouseAngle = -horizontalDelta * 18;
+
+        // Top emitter slides slightly towards the mouse
         const mouseOffset = horizontalDelta * 48;
 
-        targetAngle = mouseAngle + ambientSway * 0.4;
-        targetX = mouseOffset + ambientDrift * 0.5;
+        targetAngle = mouseAngle + ambientSway * 0.3;
+        targetX = mouseOffset + ambientDrift * 0.4;
       } else {
         // Natural relaxed idle state with organic breathing movement centered exactly at 0
         targetAngle = ambientSway;
